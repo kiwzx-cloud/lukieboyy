@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kuis Cinta 💖</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe6f0, #fce4ec);
+      color: #333;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #e91e63;
+    }
+
+    .quiz-box {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .options button {
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      background-color: #f06292;
+      color: white;
+      cursor: pointer;
+    }
+
+    .options button:hover {
+      background-color: #ec407a;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #ad1457;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kuis Cinta untuk Kamu 💘</h1>
+  <div class="quiz-box">
+    <div id="quiz">
+      <!-- Pertanyaan akan muncul di sini -->
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "Apa warna favorit pasangan kamu?",
+        options: ["Merah", "Biru", "Pink", "Hitam"],
+        answer: "Pink"
+      },
+      {
+        question: "Kapan kalian jadian?",
+        options: ["14 Februari", "1 Januari", "7 Juli", "Belum jadian 😅"],
+        answer: "14 Februari"
+      },
+      {
+        question: "Kalau kamu jadi makanan, kamu pengen jadi apa?",
+        options: ["Coklat, manis kayak kamu", "Cabe, biar pedesin harimu", "Nasi, biar kamu butuh aku tiap hari", "Mie instan, gampang tapi nagih"],
+        answer: "Nasi, biar kamu butuh aku tiap hari"
+      },
+      {
+        question: "Kalau kamu lagi bete, pasangan kamu biasanya?",
+        options: ["Ngambek juga", "Bilang 'udah makan belum?'", "Kasih pelukan", "Nonton TikTok bareng"],
+        answer: "Kasih pelukan"
+      },
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const quiz = document.getElementById("quiz");
+      const q = quizData[currentQuestion];
+
+      quiz.innerHTML = `
+        <div class="question">${q.question}</div>
+        <div class="options">
+          ${q.options.map(option => <button onclick="selectAnswer('${option}')">${option}</button>).join('')}
+        </div>
+      `;
+    }
+
+    function selectAnswer(selected) {
+      const correct = quizData[currentQuestion].answer;
+      if (selected === correct) {
+        score++;
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const quiz = document.getElementById("quiz");
+      const result = document.getElementById("result");
+
+      quiz.innerHTML = "";
+      let message = "";
+
+      if (score === quizData.length) {
+        message = "Kamu pasangan terbaik sedunia! 💍❤";
+      } else if (score >= 2) {
+        message = "Kamu lumayan tahu tentang cinta 😘";
+      } else {
+        message = "Kayaknya kita harus lebih sering quality time, ya 😅";
+      }
+
+      result.innerHTML = Skor kamu: ${score}/${quizData.length} <br><br> ${message};
+    }
+
+    // Load pertanyaan pertama
+    loadQuestion();
+  </script>
+
+</body>
+</html>
